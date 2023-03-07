@@ -37,10 +37,10 @@ def login_doctor_view(request):
                 data['token']=DrModel.objects.get(email=data['email']).token
                 return Response(data['token'], status=status.HTTP_200_OK)
             else:
-                return Response({'detail': 'password Invalid'},status=status.HTTP_200_OK)
+                return Response({'detail': 'password Invalid'},status=status.HTTP_400_BAD_REQUEST)
            
         except DrModel.DoesNotExist:
-            return Response({'Invalid Username'},status=status.HTTP_200_OK)
+            return Response({'detail':'Invalid Username'},status=status.HTTP_400_BAD_REQUEST)
            
                 
         
