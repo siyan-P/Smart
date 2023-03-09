@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 from UserApp import models #importing token signals
 from django.contrib.auth import login
 from UserApp.Api.serializers import RegistrationSerializer
+# from rest_framework import generics
+# from rest_framework.generics import ListAPIView
 
 @api_view(['POST',])
 def registration_view(request):
@@ -27,4 +29,8 @@ def registration_view(request):
         
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        
+    # if request.method == 
+
+        
         

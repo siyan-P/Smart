@@ -21,5 +21,6 @@ urlpatterns = [
     path('accounts/',include('UserApp.Api.urls')),
     path('Draccounts/',include('doctors_app.urls')),
     path('license/',include('license_app.urls')),
+    path('medicine/',include('listMed_app.urls')),
     
 ]
