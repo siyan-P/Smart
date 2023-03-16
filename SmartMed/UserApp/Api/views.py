@@ -31,6 +31,8 @@ def registration_view(request):
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         
     # if request.method == 
+    
+
 
         
         
