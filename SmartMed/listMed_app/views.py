@@ -56,8 +56,8 @@ def CaretakerMedicineView(request):
         dates=datetime.strptime(date, '%Y-%m-%d')
         filterdData = []
         for i in data:
-            currentDate = datetime.strptime(i['startDate'][:10],'%Y-%m-%d')
-            if currentDate <= dates:
+            currentDate = datetime.strptime(i['endDate'][:10],'%Y-%m-%d')
+            if currentDate >= dates:
                 filterdData.append(i)
         if not filterdData:
             return Response('data not found',status=status.HTTP_404_NOT_FOUND)
@@ -121,7 +121,8 @@ def history_view(request):
             data=User.objects.filter(id=i)    
             serializer = Userserializer(data,many=True)        
             data=serializer.data
-            #check for unique before appending  
+            #check for unique before appending
+              
             users.append(data)
 
     return Response(users)
