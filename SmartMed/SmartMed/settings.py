@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'UserApp',
     'doctors_app',
     'license_app',
+    'patientsapp',
+    
+    
     
     
     
