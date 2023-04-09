@@ -1,3 +1,4 @@
+import itertools
 from rest_framework.response import Response
 from listMed_app.serializers import MedicineSerializer,Userserializer
 from rest_framework import generics
@@ -7,6 +8,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from datetime import datetime
 from django.contrib.auth.models import User
+from patientsapp.models import patientsModel
+from patientsapp.serializers import PatientModelSerializer
 # Create your views here.
 class MedicineView(generics.CreateAPIView):
    queryset = MedModel.objects.all()
@@ -21,9 +24,9 @@ class MedicineView(generics.CreateAPIView):
 def UserPostListView(request):
     data = {}
     if request.method == 'GET':
-        user_id = request.GET.get('user_id')
+        p_id = request.GET.get('p_id')
         date=request.GET.get('date')
-        data = MedModel.objects.filter(user_id=user_id)
+        data = MedModel.objects.filter(p_id=p_id)
         if not data:
             return Response('User not found',status=status.HTTP_404_NOT_FOUND)
         serializer = MedicineSerializer(data,many=True)
@@ -86,9 +89,9 @@ class UserPostDeleteView(GenericAPIView):
 def HistoryView(request):
     data = {}
     if request.method == 'GET':
-        user_id = request.GET.get('user_id')
+        user_id = request.GET.get('p_id')
         date=request.GET.get('date')
-        data = MedModel.objects.filter(user_id=user_id)
+        data = MedModel.objects.filter(p_id=user_id)
         if not data:
             return Response('User not found',status=status.HTTP_404_NOT_FOUND)
         serializer = MedicineSerializer(data,many=True)
@@ -115,14 +118,22 @@ def history_view(request):
             return Response('data not found',status=status.HTTP_404_NOT_FOUND)
         userid = []
         for i in filterdData:
-            userid.append(i['user_id'])
+            userid.append(i['p_id'])
         users=[]
         for i in userid:
-            data=User.objects.filter(id=i)    
-            serializer = Userserializer(data,many=True)        
+            data=patientsModel.objects.filter(id=i) #.distinct('pk')   
+            serializer = PatientModelSerializer(data,many=True)        
             data=serializer.data
-            #check for unique before appending
-              
             users.append(data)
-
+        #check for unique before appending
+        # userid=[]
+        # for sublist in users[1:]:          
+        #             print(sublist)
+        # for d in users:
+        #     for i in sublist:
+        #         if d[0]['id'] != i['id']:
+        #             userid.append(d)
+                    
+        
+        # print(userid)
     return Response(users)

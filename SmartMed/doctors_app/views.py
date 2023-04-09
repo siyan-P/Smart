@@ -17,6 +17,7 @@ def registration_view(request):
             data['res']='Account Created successful!'
             data['email'] = account.email
             data['token']=DrModel.objects.get(email=data['email']).token
+            data['id']=DrModel.objects.get(email=data['email']).id
             data['username'] = account.username
            
             return Response(data)
@@ -35,7 +36,8 @@ def login_doctor_view(request):
             data['email']=DrModel.objects.get(username=username).email
             if password==DrModel.objects.get(username=username).password:
                 data['token']=DrModel.objects.get(email=data['email']).token
-                return Response(data['token'], status=status.HTTP_200_OK)
+                data['id']=DrModel.objects.get(email=data['email']).id
+                return Response(data, status=status.HTTP_200_OK)
             else:
                 return Response({'detail': 'password Invalid'},status=status.HTTP_400_BAD_REQUEST)
            

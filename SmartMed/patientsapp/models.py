@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 class patientsModel(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     p_name = models.CharField(max_length=25)
     p_email = models.EmailField(max_length=25,unique=True)
     p_bloodGroup = models.CharField(max_length=10)
