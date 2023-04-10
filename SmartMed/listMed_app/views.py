@@ -48,9 +48,9 @@ def UserPostListView(request):
 def CaretakerMedicineView(request):
     data = {}
     if request.method == 'GET':
-        user_id = request.GET.get('user_id')
+        user_id = request.GET.get('p_id')
         date=request.GET.get('date')
-        data = MedModel.objects.filter(user_id=user_id)
+        data = MedModel.objects.filter(p_id=user_id)
         if not data:
             return Response('User not found',status=status.HTTP_404_NOT_FOUND)
         serializer = MedicineSerializer(data,many=True)
@@ -79,7 +79,7 @@ class UserPostDeleteView(GenericAPIView):
     def delete(self,request,*args,**kwags):
         instance=self.get_object()
         instance.delete()
-        return Response('Delted Successfully',status=status.HTTP_200_OK)
+        return Response('Deleted Successfully',status=status.HTTP_200_OK)
 
 # class CaretakerHistoryView(generics.ListAPIView):
 #     queryset = MedModel.objects.all()
