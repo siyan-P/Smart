@@ -1,5 +1,5 @@
 from django.urls import path
-from patientsapp.views import patientCreate,PatientList,update_nfc,patientInd
+from patientsapp.views import patientCreate,PatientList,update_nfc,patientInd,PatientDeleteView
 
 
 urlpatterns = [
@@ -8,6 +8,7 @@ urlpatterns = [
     path('patientList/',PatientList,name='patient-list'),
     path('patients-update/',update_nfc,name='update-add'),
     path('PatientInfo/<int:pk>/',patientInd.as_view(),name='listInd'),
+    path('deletePatient/<int:pk>/',PatientDeleteView.as_view(),name='patientDelete'),
     
     
     

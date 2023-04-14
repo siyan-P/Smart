@@ -5,6 +5,7 @@ from patientsapp.models import patientsModel
 from patientsapp.serializers import PatientModelSerializer
 from rest_framework.decorators import api_view
 from rest_framework import status
+from rest_framework.generics import GenericAPIView
 # Create your views here.
 
 #add patient to db
@@ -50,5 +51,19 @@ def update_nfc(request):
        
 class patientInd(generics.RetrieveAPIView):
     queryset = patientsModel.objects.all()
-    serializer_class = PatientModelSerializer            
+    serializer_class = PatientModelSerializer   
+    
+class PatientDeleteView(GenericAPIView):
+    queryset=patientsModel.objects.all()
+    serializer_class=PatientModelSerializer
+    
+    def get(self,request,*args,**kwags):
+        instance=self.get_object()
+        serializer=self.get_serializer(instance)
+        return Response(serializer.data)
+    
+    def delete(self,request,*args,**kwags):
+        instance=self.get_object()
+        instance.delete()
+        return Response('Deleted Successfully',status=status.HTTP_200_OK)         
     

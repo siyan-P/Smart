@@ -137,3 +137,13 @@ def history_view(request):
         
         # print(userid)
     return Response(users)
+
+#get a perticular medicine , by using medicine id
+class medicineInd(generics.RetrieveAPIView):
+    queryset = MedModel.objects.all()
+    serializer_class = MedicineSerializer 
+
+#update the currently selected medicine
+class medicine_Update(generics.UpdateAPIView):
+    queryset = MedModel.objects.all()
+    serializer_class = MedicineSerializer
