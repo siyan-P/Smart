@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-3eusb72b@t&fo4hz9m+ehc0&@-2)2(qat415tu$fzjt)6dsg)r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','192.168.1.20','127.0.0.1','192.168.53.48','192.168.0.146']
+ALLOWED_HOSTS = ['localhost','192.168.1.20','127.0.0.1','192.168.53.48','192.168.0.146','192.168.0.107','192.168.1.39']
 
 
 # Application definition
@@ -40,11 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'listMed_app',
     'UserApp',
     'doctors_app',
     'license_app',
     'patientsapp',
+    'medAnalysis',
     
     
     
@@ -60,6 +62,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    
+]
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
 ]
 
 ROOT_URLCONF = 'SmartMed.urls'
